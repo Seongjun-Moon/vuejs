@@ -23,7 +23,7 @@
       <ul>
         <li
           v-bind:class="{completed: todo.isCompleted }"
-          v-for="todo in todosByStatus"
+          v-for="todo in todosByStatus()"
         >
           <!-- v-if="!todo.isCompleted" -->
           <input type="checkbox" v-model="todo.isCompleted" />
