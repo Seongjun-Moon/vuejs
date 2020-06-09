@@ -23,7 +23,7 @@
       <ul>
         <li
           v-bind:class="{completed: todo.isCompleted }"
-          v-for="todo in todosByStatus()"
+          v-for="todo in todosByStatus"
         >
           <!-- v-if="!todo.isCompleted" -->
           <input type="checkbox" v-model="todo.isCompleted" />
@@ -60,6 +60,18 @@
           computedDate() {
             return new Date();
           },
+          todosByStatus() {
+            // status = 'showCompleted'
+            if (this.status === "showCompleted") {
+              return this.todos.filter((todo) => todo.isCompleted);
+            }
+            // status = 'showIncomplete'
+            if (this.status === "showIncomplete") {
+              return this.todos.filter((todo) => !todo.isCompleted);
+            }
+            // status = 'showAll'
+            return this.todos;
+          },
         },
         methods: {
           methodDate() {
@@ -84,18 +96,6 @@
             // 배열을 한번씩 순회하며, 무언가를 하는 것
             // 무언가 => 함수(콜백)
             this.todos = this.todos.filter((todo) => todo.isCompleted == false);
-          },
-          todosByStatus() {
-            // status = 'showCompleted'
-            if (this.status === "showCompleted") {
-              return this.todos.filter((todo) => todo.isCompleted);
-            }
-            // status = 'showIncomplete'
-            if (this.status === "showIncomplete") {
-              return this.todos.filter((todo) => !todo.isCompleted);
-            }
-            // status = 'showAll'
-            return this.todos;
           },
         },
       });
