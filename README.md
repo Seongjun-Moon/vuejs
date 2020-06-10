@@ -35,4 +35,21 @@ Model-ViewModel-View
 - 'v-else' : 조건부 렌더링
 - 'v-on' : 이벤트를 바인딩( 'addEventListener()' )
 - 'v-model' : 양방향 바인딩
-- 'v-bind' : 속성값 설정 ( v-bind:class = "변경값을 적용할 클래스 : 속성값")
+- 'v-bind' : 속성값 설정 ( v-bind:class = "변경값을 적용할 클래스 : 속성값", 약어로 v-bind 없이 :class로 쓸 수 있음)
+- 'v-text' : 데이터 렌더 (innerText) == '{{}}'
+- 'v-html' : 데이서 렌더 (innerHTML)
+
+### 2. Vue Instance(객체)
+
+- 'new Vue{{}}'
+- 'el: '#app'' : Vue 객체의 마운트 포인트
+- 'data :{}' : Vue 객체가 관리할 데이터
+- 'methods:{}' : Vue 객체의 함수
+- 'computed:{}' : Vue 객체의 함수화된 데이터
+- 'watch: {}' : 데이터 변경에 대한 콜백
+
+#### 라이프사이클 훅
+
+- 'created()' : 객체 생성 직후
+- 'beforeMount()'
+  --- Mounted : DOM에 보이기 시작
