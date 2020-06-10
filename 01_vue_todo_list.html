@@ -23,6 +23,7 @@
       <ul>
         <li
           v-bind:class="{completed: todo.isCompleted }"
+          v-bind:key="todo.id"
           v-for="todo in todosByStatus"
         >
           <!-- v-if="!todo.isCompleted" -->
@@ -42,6 +43,18 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+      const todoStorage = {
+        // 저장(Create)
+        save(todos) {
+          localStorage.setItem("todos", JSON.stringify(todos));
+        },
+
+        //조회(Read)
+        fetch() {
+          return JSON.parse(localStorage.getItem("todos"));
+        },
+      };
+
       const app = new Vue({
         el: "#app",
         data: {
@@ -49,12 +62,7 @@
           name: "moon",
           status: "showAll", // "showCompleted" "showIncomplete"
           newInput: "",
-          todos: [
-            { content: "Vue js 복습", isCompleted: false },
-            { content: "JS 복습", isCompleted: true },
-            { content: "코딩테스트 준비", isCompleted: false },
-            { content: "Node JS 복습", isCompleted: false },
-          ],
+          todos: [],
         },
         computed: {
           computedDate() {
@@ -82,9 +90,11 @@
             // Javascript는 Boolean('')=false, 뭐라도 써있으면 true
             if (this.newInput) {
               this.todos.push({
+                id: this.todos.length, //구분할 수 있는 숫자를 id에 추가
                 content: this.newInput,
                 isCompleted: false,
               });
+
               this.newInput = "";
             } else {
               alert("뭐라도 써");
@@ -97,6 +107,18 @@
             // 무언가 => 함수(콜백)
             this.todos = this.todos.filter((todo) => todo.isCompleted == false);
           },
+        },
+        watch: {
+          todos: {
+            handler: function (todos) {
+              // todos가 변경되면 아래가 실행됨.
+              todoStorage.save(todos);
+            },
+            deep: true,
+          },
+        },
+        created() {
+          this.todos = todoStorage.fetch();
         },
       });
     </script>
